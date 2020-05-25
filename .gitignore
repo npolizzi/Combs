@@ -1,0 +1,13 @@
+# Docs
+/docs/_build/
+
+*.pdb
+*.pdb.gz
+
+*.pdf
+*png
+*.zip
+*.gz
+*.tgz
+
+.idea

@@ -3,6 +3,10 @@ from collections import deque
 import pandas as pd
 
 
+__all__ = ['parse_stride']
+
+
+#dtypes of dataframe columns in :func:`parse_stride`
 stride_dtype_dict = {'segid': 'category',
                      'chain': 'category',
                      'resnum': int,
@@ -12,6 +16,7 @@ stride_dtype_dict = {'segid': 'category',
                      'sasa': float}
 
 
+# dataframe columns in :func:`parse_stride`
 stride_col_names = ['segid', 'chain',
                     'resnum', 'stride',
                     'phi', 'psi', 'sasa']
@@ -19,18 +24,14 @@ stride_col_names = ['segid', 'chain',
 
 def _make_segid_dict(pdb):
     """
-
     Parameters
     ----------
-    pdb
-
-    Returns
-    -------
-
+    pdb : :class:`prody.Atomic`
     """
-    segnames = pdb.ca.getSegnames()
-    resnums = pdb.ca.getResnums()
-    chids = pdb.ca.getChids()
+    ca = pdb.select('name CA')
+    segnames = ca.getSegnames()
+    resnums = ca.getResnums()
+    chids = ca.getChids()
     seg_dict = defaultdict(deque)
     for rn, ch, segn in zip(resnums, chids, segnames):
         seg_dict[(rn, ch)].append(segn)
@@ -38,16 +39,15 @@ def _make_segid_dict(pdb):
 
 
 def _parse_stride_line(line, seg_dict):
-    """
+    """Note that seg_dict gets altered via
+    :func:`collections.deque.popleft()`
 
     Parameters
     ----------
     line
-    seg_dict
-
-    Returns
-    -------
-
+        line from a file open
+    seg_dict: defaultdict
+        output of :func:`_make_segid_dict`
     """
     CHAIN = line[9:11].strip()
     RESN = int(line[11:16])
@@ -61,16 +61,21 @@ def _parse_stride_line(line, seg_dict):
 
 
 def parse_stride(stride_file, pdb):
-    """
+    """Used to generate :class:`~pandas.DataFrame`
+    containing stride info of a PDB.
 
     Parameters
     ----------
-    stride_file
-    pdb
+    stride_file : str
+        path to stride file
+    pdb : :class:`~prody.Atomic`
+        corresponding pdb object
 
     Returns
     -------
-
+    :class:`~pandas.DataFrame`
+        Dataframe containing columns from
+        *stride_col_names*
     """
     seg_dict = _make_segid_dict(pdb)
     stride_data = []

@@ -2,8 +2,8 @@ Combs: Convergent motifs for binding sites
 -----------------------------------
 NOTICE
 +++++++
-Please note that a user-friedly, updated version of COMBS will be available here by **December 15, 2020**.
-So sorry to push the date back. If you'd like access to the vdM libraries from the Science paper in 
+Please note that a user-friedly, updated version of COMBS will be available here by **December 21, 2020** 
+(In testing phase now; We are converging...) So sorry to push the date back. If you'd like access to the vdM libraries from the Science paper in 
 the meantime, please let me know. We had planned to release an updated version during the summer, but our 
 efforts were delayed due to the global COVID-19 pandemic.  The new release will include vdM databases, 
 for which we have developed a new metric to determine redundancy in the PDB.  Please stay tuned til then!

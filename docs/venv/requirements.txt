@@ -7,7 +7,7 @@ Babel==2.8.0
 backcall==0.1.0
 biopython==1.76
 bleach==3.1.5
-certifi==2020.4.5.1
+certifi==2022.12.7
 chardet==3.0.4
 cycler==0.10.0
 decorator==4.4.2
